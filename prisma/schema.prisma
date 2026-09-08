@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String
+  slug        String    @unique
+  description String    @default("")
+  products    Product[]
+  createdAt   DateTime  @default(now())
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  slug        String      @unique
+  name        String
+  tagline     String      @default("")
+  description String      @default("")
+  benefits    String      @default("[]") // JSON string[]
+  ingredients String      @default("")
+  size        String      @default("")
+  mrp         Float       @default(0)
+  salePrice   Float?
+  stock       Int         @default(0)
+  images      String      @default("[]") // JSON string[]
+  badge       String?
+  isActive    Boolean     @default(true)
+  isFeatured  Boolean     @default(false)
+  categoryId  Int
+  category    Category    @relation(fields: [categoryId], references: [id])
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Order {
+  id                String      @id @default(cuid())
+  orderNumber       String      @unique
+  customerName      String
+  email             String      @default("")
+  phone             String
+  address           String
+  city              String
+  state             String
+  pincode           String
+  subtotal          Float
+  discount          Float       @default(0)
+  shipping          Float       @default(0)
+  total             Float
+  couponCode        String?
+  paymentMethod     String      @default("COD") // RAZORPAY | COD
+  paymentStatus     String      @default("PENDING") // PENDING | PAID | FAILED
+  status            String      @default("PLACED") // PLACED | CONFIRMED | SHIPPED | DELIVERED | CANCELLED
+  razorpayOrderId   String?
+  razorpayPaymentId String?
+  isDemoPayment     Boolean     @default(false)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  items             OrderItem[]
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  name      String
+  slug      String  @default("")
+  image     String  @default("")
+  price     Float
+  qty       Int
+}
+
+model AdminUser {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  name         String   @default("Admin")
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Coupon {
+  id        Int       @id @default(autoincrement())
+  code      String    @unique
+  type      String    @default("PERCENT") // PERCENT | FLAT
+  value     Float
+  minOrder  Float     @default(0)
+  isActive  Boolean   @default(true)
+  expiresAt DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model Setting {
+  key   String @id
+  value String @default("")
+}

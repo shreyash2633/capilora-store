@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+}
+
+@theme {
+  --color-forest-950: #0c1d07;
+  --color-forest-900: #142b0b;
+  --color-forest-800: #1c3c11;
+  --color-forest-700: #264f18;
+  --color-forest-600: #2f6522;
+  --color-leaf-600: #4a7d33;
+  --color-leaf-500: #5c9139;
+  --color-leaf-400: #a6cc75;
+  --color-leaf-300: #c6dea2;
+  --color-leaf-200: #ddedc3;
+  --color-lime-100: #f1f9d0;
+  --color-lime-50: #f7fce4;
+  --color-cream: #fbfdf5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-pop {
+  animation: pop-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.anim-d1 { animation-delay: 0.07s; }
+.anim-d2 { animation-delay: 0.14s; }
+.anim-d3 { animation-delay: 0.21s; }
+.anim-d4 { animation-delay: 0.28s; }
+.anim-d5 { animation-delay: 0.35s; }
+.anim-d6 { animation-delay: 0.42s; }
+
+.marquee-track {
+  animation: marquee 26s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-pop,
+  .marquee-track {
+    animation: none;
+  }
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-forest-950);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-leaf-500 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-forest-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-leaf-400 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest-900 px-6 py-3 text-sm font-semibold text-lime-100 shadow-sm transition hover:bg-forest-800 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-forest-900/20 bg-white px-6 py-3 text-sm font-semibold text-forest-900 transition hover:border-leaf-500 hover:text-leaf-600 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-sm {
+    @apply px-4 py-2 text-xs;
+  }
+  .input {
+    @apply w-full rounded-xl border border-forest-900/15 bg-white px-4 py-2.5 text-sm text-forest-950 outline-none transition placeholder:text-forest-900/40 focus:border-leaf-500 focus:ring-2 focus:ring-leaf-400/40;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-forest-900/70;
+  }
+  .card {
+    @apply rounded-2xl border border-forest-900/10 bg-white shadow-sm;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold;
+  }
+  .section-title {
+    @apply font-display text-3xl font-semibold tracking-tight text-forest-950 sm:text-4xl;
+  }
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.2em] text-leaf-600;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold text-forest-900/70 ring-1 ring-forest-900/10;
+  }
+  .glass-header {
+    background: color-mix(in srgb, var(--color-cream) 88%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
