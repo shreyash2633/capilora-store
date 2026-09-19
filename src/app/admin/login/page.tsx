@@ -39,20 +39,17 @@ export default function AdminLoginPage() {
         <form onSubmit={submit} className="space-y-4">
           <div>
             <label className="label">Email</label>
-            <input className="input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input className="input" type="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div>
             <label className="label">Password</label>
-            <input className="input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
+            <input className="input" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
           </div>
           {error && <p className="rounded-lg bg-red-50 p-3 text-xs font-medium text-red-600">{error}</p>}
           <button className="btn-primary w-full" disabled={busy}>
             <LogIn className="h-4 w-4" /> {busy ? "Signing in…" : "Sign In"}
           </button>
         </form>
-        <p className="mt-5 text-center text-[11px] text-forest-900/45">
-          Default credentials after seeding: admin@capilora.in / Capilora@123 — change them after first login.
-        </p>
       </div>
     </div>
   )
