@@ -12,12 +12,21 @@ const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfa
 export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3300"),
   title: {
     default: "Capilora Professional — Salon-Grade Hair & Skin Care",
     template: "%s · Capilora Professional",
   },
   description:
     "Capilora Professional — dermat-friendly, salon-grade hair and skin care. Sulphate free, paraben free, cruelty free. Powered by proven actives.",
+  openGraph: {
+    type: "website",
+    siteName: "Capilora Professional",
+    title: "Capilora Professional — Salon-Grade Hair & Skin Care",
+    description:
+      "Dermat-friendly, salon-grade hair and skin care. Sulphate free, paraben free, cruelty free. Powered by proven actives.",
+  },
+  twitter: { card: "summary_large_image" },
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

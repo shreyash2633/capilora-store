@@ -10,9 +10,9 @@ export const metadata = { title: "Order Confirmed" }
 export default async function SuccessPage({
   searchParams,
 }: {
-  searchParams: Promise<{ order?: string; demo?: string }>
+  searchParams: Promise<{ order?: string }>
 }) {
-  const { order: orderNumber, demo } = await searchParams
+  const { order: orderNumber } = await searchParams
   const settings = await getSettings()
 
   const order = orderNumber
@@ -40,8 +40,7 @@ export default async function SuccessPage({
         </span>
         <h1 className="font-display text-3xl font-semibold text-forest-950">Thank you, {order.customerName.split(" ")[0]}!</h1>
         <p className="mt-2 text-sm text-forest-900/60">
-          Your order <span className="font-bold text-forest-950">{order.orderNumber}</span> is confirmed
-          {demo ? " (demo payment)" : ""}. We&apos;ll update you on WhatsApp at {order.phone}.
+          Your order <span className="font-bold text-forest-950">{order.orderNumber}</span> is confirmed. We&apos;ll update you on WhatsApp at {order.phone}.
         </p>
 
         <div className="mt-8 space-y-3 text-left">

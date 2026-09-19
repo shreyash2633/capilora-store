@@ -228,8 +228,7 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   contactPhone: "+91 82628 56278",
   contactWhatsApp: "918262856278",
   contactEmail: "bhors527@gmail.com",
-  contactAddress:
-    "Marketed by Capilora Professional  •  Mfd. by Purete Laboratoire, Surat - 395009, Gujarat, India  •  Mfg. Lic. No: GC-1473",
+  contactAddress: "Marketed by Capilora Professional",
   freeShipThreshold: "499",
   shippingFee: "49",
 }

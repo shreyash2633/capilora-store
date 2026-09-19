@@ -43,6 +43,11 @@ export async function POST(req: NextRequest) {
   if (!parsed.success) return bad("Invalid order data: " + parsed.error.issues[0]?.message)
   const d = parsed.data
 
+  // Do not accept online payments while the gateway is not configured.
+  if (d.paymentMethod === "RAZORPAY" && !isRazorpayConfigured()) {
+    return bad("Online payments are not available yet — please select Cash on Delivery.", 400)
+  }
+
   // Load products and validate stock/prices server-side
   const ids = d.items.map((i) => i.productId)
   const products = await db.product.findMany({ where: { id: { in: ids }, isActive: true } })
@@ -116,25 +121,21 @@ export async function POST(req: NextRequest) {
 
   // Payment setup
   if (d.paymentMethod === "RAZORPAY") {
-    if (isRazorpayConfigured()) {
-      try {
-        const rzp = await createRazorpayOrder(Math.round(total * 100), orderNumber, { orderNumber })
-        await db.order.update({ where: { id: order.id }, data: { razorpayOrderId: rzp.id } })
-        return ok({
-          orderNumber,
-          payment: {
-            keyId: process.env.RAZORPAY_KEY_ID,
-            amount: rzp.amount,
-            razorpayOrderId: rzp.id,
-          },
-        })
-      } catch (e) {
-        await db.order.update({ where: { id: order.id }, data: { paymentStatus: "FAILED" } })
-        return bad(e instanceof Error ? e.message : "Payment gateway error — order saved, try COD", 502)
-      }
+    try {
+      const rzp = await createRazorpayOrder(Math.round(total * 100), orderNumber, { orderNumber })
+      await db.order.update({ where: { id: order.id }, data: { razorpayOrderId: rzp.id } })
+      return ok({
+        orderNumber,
+        payment: {
+          keyId: process.env.RAZORPAY_KEY_ID,
+          amount: rzp.amount,
+          razorpayOrderId: rzp.id,
+        },
+      })
+    } catch (e) {
+      await db.order.update({ where: { id: order.id }, data: { paymentStatus: "FAILED" } })
+      return bad(e instanceof Error ? e.message : "Payment gateway error — order saved, try COD", 502)
     }
-    // No live keys configured → demo mode
-    return ok({ orderNumber, demo: true })
   }
 
   // COD

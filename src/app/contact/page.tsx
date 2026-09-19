@@ -47,10 +47,6 @@ export default async function ContactPage() {
           <h3 className="font-bold">Registered Office</h3>
           <p className="mt-1 text-sm leading-relaxed text-forest-900/60">
             Marketed by Capilora Professional
-            <br />
-            Mfd. by Purete Laboratoire, Surat - 395009, Gujarat, India
-            <br />
-            Mfg. Lic. No: GC-1473
           </p>
         </div>
 

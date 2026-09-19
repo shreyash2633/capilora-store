@@ -28,7 +28,7 @@ export default function AboutPage() {
           {
             icon: FlaskConical,
             title: "Science-first",
-            text: "Developed with Purete Laboratoire, an ISO-certified cosmetic manufacturing facility in Surat, Gujarat.",
+            text: "Developed by cosmetic chemists at an ISO-certified cosmetic manufacturing facility.",
           },
           {
             icon: ShieldCheck,
@@ -51,8 +51,7 @@ export default function AboutPage() {
           <div className="bg-forest-950 p-8 text-lime-100 sm:p-10">
             <h2 className="font-display text-2xl font-semibold">Manufacturing excellence</h2>
             <p className="mt-3 text-sm leading-relaxed text-lime-100/70">
-              All Capilora Professional products are manufactured by Purete Laboratoire, Surat - 395009, Gujarat, India —
-              an ISO-certified cosmetic facility operating under Drug &amp; Cosmetic Act licence GC-1473. Every batch is
+              All Capilora Professional products are manufactured at an ISO-certified cosmetic facility. Every batch is
               quality-checked and carries a 24-month best-before window.
             </p>
           </div>
@@ -60,7 +59,6 @@ export default function AboutPage() {
             <ul className="space-y-3 text-sm">
               {[
                 "ISO-certified manufacturing facility",
-                "Mfg. Licence No: GC-1473",
                 "Batch-tested with 24-month shelf life",
                 "Full INCI disclosure on every pack",
                 "Dermat-friendly, cruelty-free formulations",

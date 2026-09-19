@@ -1,20 +1,34 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import type { Metadata } from "next"
 import { CheckCircle2, ChevronRight, Package, ShieldCheck, Truck } from "lucide-react"
 import { db } from "@/lib/db"
 import { Badge } from "@/components/ui/badge"
 import { Price } from "@/components/site/price"
 import { ProductCard } from "@/components/site/product-card"
 import { AddToCart } from "./add-to-cart"
+import { Gallery } from "./gallery"
 import { discountPercent, parseJsonArray } from "@/lib/utils"
 
 export const dynamic = "force-dynamic"
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const p = await db.product.findUnique({ where: { slug } })
   if (!p) return { title: "Product not found" }
-  return { title: p.name, description: p.tagline || p.description.slice(0, 150) }
+  const images = parseJsonArray<string>(p.images)
+  const img = images[0] ? [images[0]] : undefined
+  return {
+    title: p.name,
+    description: p.tagline || p.description.slice(0, 150),
+    openGraph: {
+      title: `${p.name} · Capilora Professional`,
+      description: p.tagline || p.description.slice(0, 150),
+      images: img,
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", images: img },
+  }
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -29,6 +43,24 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const benefits = parseJsonArray<string>(product.benefits)
   const price = product.salePrice ?? product.mrp
   const off = discountPercent(product)
+  const inStock = product.stock > 0
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.tagline || product.description,
+    image: images,
+    brand: { "@type": "Brand", name: "Capilora Professional" },
+    sku: `CAP-${product.id}`,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "INR",
+      price,
+      availability: inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      itemCondition: "https://schema.org/NewCondition",
+    },
+  }
 
   const related = await db.product.findMany({
     where: { isActive: true, categoryId: product.categoryId, id: { not: product.id } },
@@ -38,6 +70,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
       {/* Breadcrumb */}
       <nav className="mb-6 flex items-center gap-1.5 text-xs font-medium text-forest-900/50">
         <Link href="/" className="hover:text-leaf-600">Home</Link>
@@ -52,27 +86,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </nav>
 
       <div className="grid gap-10 lg:grid-cols-2">
-        {/* Gallery */}
-        <div className="space-y-4">
-          <div className="card relative overflow-hidden bg-lime-50">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={images[0] || "/icon.svg"} alt={product.name} className="aspect-square w-full object-cover" />
-            <div className="absolute left-4 top-4 flex flex-col gap-2">
-              {product.badge ? <Badge tone="forest">{product.badge}</Badge> : null}
-              {off > 0 ? <Badge className="bg-leaf-500 text-white">Save {off}%</Badge> : null}
-            </div>
-          </div>
-          {images.length > 1 && (
-            <div className="grid grid-cols-4 gap-3">
-              {images.slice(1, 5).map((src, i) => (
-                <div key={i} className="card overflow-hidden bg-white p-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={src} alt={`${product.name} view ${i + 2}`} className="aspect-square w-full object-cover" />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        <Gallery images={images} alt={product.name} />
 
         {/* Info */}
         <div className="space-y-6">
@@ -85,13 +99,24 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div className="flex flex-wrap items-center gap-3">
             <Price mrp={product.mrp} salePrice={product.salePrice} large />
             <Badge tone="outline">{product.size}</Badge>
-            {off > 0 && <Badge className="bg-leaf-500 text-white">{off}% OFF</Badge>}
+            {off > 0 && <Badge className="bg-apricot-500 text-forest-950">{off}% OFF</Badge>}
+            {inStock ? (
+              <Badge className="bg-lime-100 text-forest-800">In stock</Badge>
+            ) : (
+              <Badge tone="danger">Out of stock</Badge>
+            )}
+            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-berry-600">
+              <svg viewBox="0 0 20 20" fill="currentColor" className="h-3 w-3 text-berry-400" aria-hidden>
+                <path d="M9.05 2.9c.3-.9 1.6-.9 1.9 0l1.3 4a1 1 0 0 0 .95.69h4.2c.98 0 1.4 1.26.6 1.84l-3.4 2.47a1 1 0 0 0-.37 1.12l1.3 4c.3.93-.76 1.7-1.55 1.13l-3.4-2.46a1 1 0 0 0-1.17 0l-3.4 2.46c-.78.57-1.84-.2-1.54-1.12l1.3-4a1 1 0 0 0-.37-1.13L2 9.43c-.78-.58-.38-1.84.6-1.84h4.2a1 1 0 0 0 .95-.7l1.3-4Z" />
+              </svg>
+              4.8 · Professional Grade
+            </span>
           </div>
 
           <p className="leading-relaxed text-forest-900/70">{product.description}</p>
 
           {benefits.length > 0 && (
-            <ul className="space-y-2.5 rounded-2xl bg-lime-50 p-5">
+            <ul className="space-y-2.5 rounded-3xl bg-lime-50 p-5 ring-1 ring-leaf-200/60">
               {benefits.map((b, i) => (
                 <li key={i} className="flex items-start gap-2.5 text-sm font-medium text-forest-900">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-leaf-600" />
@@ -148,8 +173,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <span className="float-right text-leaf-600 transition group-open:rotate-180">▾</span>
             </summary>
             <p className="mt-3 text-sm leading-relaxed text-forest-900/70">
-              Marketed by Capilora Professional. Manufactured by Purete Laboratoire, Surat - 395009, Gujarat, India.
-              Mfg. Lic. No: GC-1473. ISO-certified facility.
+              Marketed by Capilora Professional. Manufactured at an ISO-certified cosmetic facility.
             </p>
           </details>
         </div>

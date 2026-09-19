@@ -54,14 +54,19 @@ async function main() {
     console.log(`  ✓ ${p.name}`)
   }
 
-  // Admin user
-  const passwordHash = bcrypt.hashSync("Capilora@123", 10)
+  // Admin user — credentials come from env; refuse to create a well-known default.
+  const adminEmail = (process.env.ADMIN_EMAIL ?? "admin@capilora.in").toLowerCase().trim()
+  const adminPassword = process.env.ADMIN_PASSWORD
+  if (!adminPassword || adminPassword.length < 12) {
+    throw new Error("ADMIN_PASSWORD env var is required (min 12 chars) to seed the admin user.")
+  }
+  const passwordHash = bcrypt.hashSync(adminPassword, 10)
   await prisma.adminUser.upsert({
-    where: { email: "admin@capilora.in" },
+    where: { email: adminEmail },
     update: { passwordHash },
-    create: { email: "admin@capilora.in", name: "Store Admin", passwordHash },
+    create: { email: adminEmail, name: "Store Admin", passwordHash },
   })
-  console.log("  ✓ Admin: admin@capilora.in / Capilora@123")
+  console.log(`  ✓ Admin: ${adminEmail} (password from ADMIN_PASSWORD env)`)
 
   // Coupons
   for (const c of COUPONS) {

@@ -15,8 +15,8 @@ export default function TermsPage() {
         <section>
           <h2 className="mb-2 font-bold text-forest-950">Payments</h2>
           <p>
-            We accept UPI, cards and netbanking via Razorpay, and Cash on Delivery. For COD, please keep exact change
-            ready. Orders may be confirmed on WhatsApp before dispatch.
+            We currently accept Cash on Delivery. Online payments (UPI, cards and netbanking via Razorpay) are coming
+            online shortly. For COD, please keep exact change ready. Orders may be confirmed on WhatsApp before dispatch.
           </p>
         </section>
         <section>

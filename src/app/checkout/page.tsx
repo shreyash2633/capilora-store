@@ -33,7 +33,8 @@ export default function CheckoutPage() {
     state: "",
     pincode: "",
   })
-  const [paymentMethod, setPaymentMethod] = useState<"RAZORPAY" | "COD">("RAZORPAY")
+  const [paymentMethod, setPaymentMethod] = useState<"RAZORPAY" | "COD">("COD")
+  const [onlinePaymentsAvailable, setOnlinePaymentsAvailable] = useState(true)
   const [couponInput, setCouponInput] = useState("")
   const [coupon, setCoupon] = useState<AppliedCoupon | null>(null)
   const [couponMsg, setCouponMsg] = useState("")
@@ -43,6 +44,12 @@ export default function CheckoutPage() {
   useEffect(() => {
     if (ready && items.length === 0) router.replace("/cart")
   }, [ready, items.length, router])
+
+  useEffect(() => {
+    api<{ razorpayConfigured?: boolean }>("/api/payments/status")
+      .then((s) => setOnlinePaymentsAvailable(Boolean(s.razorpayConfigured)))
+      .catch(() => {})
+  }, [])
 
   const discount = coupon?.discount ?? 0
   const afterDiscount = Math.max(0, subtotal - discount)
@@ -87,7 +94,6 @@ export default function CheckoutPage() {
     try {
       const order = await api<{
         orderNumber: string
-        demo?: boolean
         payment?: { keyId: string; amount: number; razorpayOrderId: string }
       }>("/api/orders", {
         method: "POST",
@@ -102,13 +108,6 @@ export default function CheckoutPage() {
       if (paymentMethod === "COD") {
         clear()
         router.push(`/order/success?order=${order.orderNumber}`)
-        return
-      }
-
-      if (order.demo) {
-        await api("/api/payments/demo", { method: "POST", json: { orderNumber: order.orderNumber } })
-        clear()
-        router.push(`/order/success?order=${order.orderNumber}&demo=1`)
         return
       }
 
@@ -205,18 +204,20 @@ export default function CheckoutPage() {
           <section className="card p-6">
             <h2 className="mb-4 font-display text-xl font-semibold">Payment Method</h2>
             <div className="grid gap-3 sm:grid-cols-2">
-              <button
-                onClick={() => setPaymentMethod("RAZORPAY")}
-                className={`flex items-start gap-3 rounded-2xl border-2 p-4 text-left transition ${
-                  paymentMethod === "RAZORPAY" ? "border-leaf-500 bg-lime-50" : "border-forest-900/10 bg-white hover:border-leaf-300"
-                }`}
-              >
-                <CreditCard className="mt-0.5 h-5 w-5 text-leaf-600" />
-                <div>
-                  <div className="text-sm font-bold">UPI / Cards / NetBanking</div>
-                  <div className="text-xs text-forest-900/60">Secure payment via Razorpay</div>
-                </div>
-              </button>
+              {onlinePaymentsAvailable && (
+                <button
+                  onClick={() => setPaymentMethod("RAZORPAY")}
+                  className={`flex items-start gap-3 rounded-2xl border-2 p-4 text-left transition ${
+                    paymentMethod === "RAZORPAY" ? "border-leaf-500 bg-lime-50" : "border-forest-900/10 bg-white hover:border-leaf-300"
+                  }`}
+                >
+                  <CreditCard className="mt-0.5 h-5 w-5 text-leaf-600" />
+                  <div>
+                    <div className="text-sm font-bold">UPI / Cards / NetBanking</div>
+                    <div className="text-xs text-forest-900/60">Secure payment via Razorpay</div>
+                  </div>
+                </button>
+              )}
               <button
                 onClick={() => setPaymentMethod("COD")}
                 className={`flex items-start gap-3 rounded-2xl border-2 p-4 text-left transition ${
@@ -230,6 +231,9 @@ export default function CheckoutPage() {
                 </div>
               </button>
             </div>
+            {!onlinePaymentsAvailable && (
+              <p className="mt-3 text-xs text-forest-900/50">Online payments are coming soon — Cash on Delivery is available now.</p>
+            )}
           </section>
         </div>
 

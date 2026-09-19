@@ -3,6 +3,8 @@ import { Mail, MapPin, Phone } from "lucide-react"
 import { Logo } from "./logo"
 import type { StoreSettings } from "@/lib/settings"
 
+const PAYMENTS = ["COD", "UPI (coming soon)"]
+
 export function Footer({ settings }: { settings: StoreSettings }) {
   return (
     <footer className="mt-24 bg-forest-950 text-lime-100/80">
@@ -64,9 +66,15 @@ export function Footer({ settings }: { settings: StoreSettings }) {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-lime-100/50 sm:flex-row sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 text-xs text-lime-100/50 sm:flex-row sm:px-6">
           <span>© {new Date().getFullYear()} Capilora Professional. All rights reserved.</span>
-          <span>Mfd. by Purete Laboratoire, Surat (Guj.) · ISO Certified Facility · Mfg. Lic. No: GC-1473</span>
+          <div className="flex flex-wrap items-center justify-center gap-1.5">
+            {PAYMENTS.map((p) => (
+              <span key={p} className="rounded-md bg-white/10 px-2 py-1 text-[10px] font-bold tracking-wide text-lime-100/80">
+                {p}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

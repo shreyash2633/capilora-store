@@ -7,12 +7,13 @@ import { Badge } from "@/components/ui/badge"
 export const dynamic = "force-dynamic"
 
 export default async function AdminDashboard() {
-  const [paidOrders, allOrders, productCount, lowStock, recent] = await Promise.all([
+  const [paidOrders, allOrders, productCount, lowStock, recent, placedCount] = await Promise.all([
     db.order.findMany({ where: { paymentStatus: "PAID", status: { not: "CANCELLED" } }, select: { total: true } }),
     db.order.count(),
     db.product.count(),
     db.product.findMany({ where: { stock: { lte: 5 } }, select: { id: true, name: true, stock: true } }),
     db.order.findMany({ take: 6, orderBy: { createdAt: "desc" }, include: { items: true } }),
+    db.order.count({ where: { status: "PLACED" } }),
   ])
 
   const revenue = paidOrders.reduce((a, o) => a + o.total, 0)
@@ -65,6 +66,17 @@ export default async function AdminDashboard() {
               </Link>
             ))}
           </div>
+        </div>
+      )}
+
+      {placedCount > 0 && (
+        <div className="card border-blue-300 bg-blue-50 p-5">
+          <div className="flex items-center gap-2 text-sm font-bold text-blue-800">
+            <ShoppingBag className="h-4 w-4" /> {placedCount} order{placedCount === 1 ? "" : "s"} awaiting confirmation
+          </div>
+          <p className="mt-1 text-xs text-blue-700/80">
+            Confirm these on WhatsApp with the customer, then mark them <span className="font-bold">CONFIRMED</span> in the order view.
+          </p>
         </div>
       )}
 
