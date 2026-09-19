@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { CheckCircle2, FlaskConical, Leaf, ShieldCheck } from "lucide-react"
 
-export const metadata = { title: "About Us" }
+export const metadata = { title: "About Us", description: "The story behind Capilora Professional — salon-grade, dermat-friendly hair and skin care made in India.", alternates: { canonical: "/about" } }
 
 export default function AboutPage() {
   return (

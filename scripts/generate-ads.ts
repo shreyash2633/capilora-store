@@ -33,7 +33,7 @@ function fileUrl(p: string) {
 }
 
 function packshotUrl(slug: string) {
-  return fileUrl(path.join(ROOT, "public", "products", `${slug}.png`))
+  return fileUrl(path.join(ROOT, "public", "products", `${slug}.webp`))
 }
 
 interface AdProduct {

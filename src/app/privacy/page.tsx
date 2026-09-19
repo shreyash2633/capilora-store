@@ -1,4 +1,4 @@
-export const metadata = { title: "Privacy Policy" }
+export const metadata = { title: "Privacy Policy", description: "How Capilora Professional collects, uses and protects your personal data.", alternates: { canonical: "/privacy" } }
 
 export default function PrivacyPage() {
   return (

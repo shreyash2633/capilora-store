@@ -57,7 +57,7 @@ export const PRODUCTS: SeedProduct[] = [
     badge: "New",
     isFeatured: true,
     category: "skin-care",
-    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.47 PM (1).jpeg",
+    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.47 PM (1).webp",
   },
   {
     slug: "vitamin-c-face-serum",
@@ -81,7 +81,7 @@ export const PRODUCTS: SeedProduct[] = [
     badge: "Bestseller",
     isFeatured: true,
     category: "skin-care",
-    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.47 PM (2).jpeg",
+    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.47 PM (2).webp",
   },
   {
     slug: "dandruff-control-shampoo",
@@ -104,7 +104,7 @@ export const PRODUCTS: SeedProduct[] = [
     images: [],
     isFeatured: true,
     category: "hair-care",
-    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.47 PM.jpeg",
+    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.47 PM.webp",
   },
   {
     slug: "foaming-face-wash",
@@ -127,7 +127,7 @@ export const PRODUCTS: SeedProduct[] = [
     images: [],
     isFeatured: true,
     category: "skin-care",
-    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.48 PM (1).jpeg",
+    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.48 PM (1).webp",
   },
   {
     slug: "acne-control-face-serum",
@@ -150,7 +150,7 @@ export const PRODUCTS: SeedProduct[] = [
     images: [],
     isFeatured: false,
     category: "skin-care",
-    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.48 PM.jpeg",
+    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.48 PM.webp",
   },
   {
     slug: "hair-fall-control-conditioner",
@@ -173,7 +173,7 @@ export const PRODUCTS: SeedProduct[] = [
     images: [],
     isFeatured: true,
     category: "hair-care",
-    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.49 PM (1).jpeg",
+    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.49 PM (1).webp",
   },
   {
     slug: "intense-underarm-cream",
@@ -196,7 +196,7 @@ export const PRODUCTS: SeedProduct[] = [
     images: [],
     isFeatured: false,
     category: "skin-care",
-    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.49 PM.jpeg",
+    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.49 PM.webp",
   },
   {
     slug: "deep-repair-hair-mask",
@@ -219,7 +219,7 @@ export const PRODUCTS: SeedProduct[] = [
     images: [],
     isFeatured: true,
     category: "hair-care",
-    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.50 PM.jpeg",
+    stickerFile: "WhatsApp Image 2026-09-07 at 10.29.50 PM.webp",
   },
 ]
 

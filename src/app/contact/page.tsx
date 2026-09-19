@@ -2,7 +2,7 @@ import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react"
 import { getSettings } from "@/lib/settings"
 
 export const dynamic = "force-dynamic"
-export const metadata = { title: "Contact Us" }
+export const metadata = { title: "Contact Us", description: "Questions about an order, product advice, or salon and bulk partnerships — reach Capilora Professional on WhatsApp or email.", alternates: { canonical: "/contact" } }
 
 export default async function ContactPage() {
   const s = await getSettings()

@@ -5,7 +5,7 @@ import { getSettings } from "@/lib/settings"
 import { formatINR } from "@/lib/utils"
 
 export const dynamic = "force-dynamic"
-export const metadata = { title: "Order Confirmed" }
+export const metadata = { title: "Order Confirmed", robots: { index: false, follow: false } }
 
 export default async function SuccessPage({
   searchParams,

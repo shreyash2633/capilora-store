@@ -3,7 +3,7 @@ import { getAdmin } from "@/lib/auth"
 import { AdminSidebar } from "@/components/admin/sidebar"
 
 export const dynamic = "force-dynamic"
-export const metadata = { title: "Admin Panel" }
+export const metadata = { title: "Admin Panel", robots: { index: false, follow: false } }
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const admin = await getAdmin()

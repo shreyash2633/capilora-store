@@ -24,8 +24,8 @@ async function main() {
   for (const p of PRODUCTS) {
     const images = [...p.images]
     const stickerPath = `/products/stickers/${encodeURIComponent(p.stickerFile)}`
-    const packshot = `/products/${p.slug}.png`
-    const absPackshot = resolve(process.cwd(), "public", "products", `${p.slug}.png`)
+    const packshot = `/products/${p.slug}.webp`
+    const absPackshot = resolve(process.cwd(), "public", "products", `${p.slug}.webp`)
     if (existsSync(absPackshot)) images.push(packshot)
     images.push(stickerPath)
 

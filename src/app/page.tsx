@@ -1,4 +1,5 @@
 import Link from "next/link"
+import type { Metadata } from "next"
 import { ArrowRight, CheckCircle2, FlaskConical, Leaf, Sparkles, Truck } from "lucide-react"
 import { db } from "@/lib/db"
 import { getSettings } from "@/lib/settings"
@@ -6,6 +7,10 @@ import { ProductCard } from "@/components/site/product-card"
 import { parseJsonArray } from "@/lib/utils"
 
 export const dynamic = "force-dynamic"
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+}
 
 const ACTIVES = [
   { name: "Piroctone Olamine", where: "Dandruff Control Shampoo", what: "Gently eliminates dandruff-causing flakes without drying the scalp." },
@@ -52,6 +57,25 @@ export default async function HomePage() {
 
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Capilora Professional",
+              url: new URL("/", process.env.NEXT_PUBLIC_SITE_URL || "https://capilora-store.vercel.app").href,
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Capilora Professional",
+              url: new URL("/", process.env.NEXT_PUBLIC_SITE_URL || "https://capilora-store.vercel.app").href,
+            },
+          ]),
+        }}
+      />
       {/* ————— HERO ————— */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-lime-50 via-lime-100 to-leaf-200" />

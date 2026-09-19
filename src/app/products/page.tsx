@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 
 export const dynamic = "force-dynamic"
 
-export const metadata = { title: "Shop All Products" }
+export const metadata = { title: "Shop All Products", description: "Shop the full Capilora Professional range — dandruff control, anti-acne care, sunscreen, conditioners and more, with free shipping over ₹499.", alternates: { canonical: "/products" } }
 
 const SORTS = [
   { key: "featured", label: "Featured" },

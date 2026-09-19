@@ -4,7 +4,7 @@ import { Download } from "lucide-react"
 import { PRODUCTS } from "../../../scripts/products-data"
 
 export const dynamic = "force-dynamic"
-export const metadata = { title: "Ad Creatives" }
+export const metadata = { title: "Ad Creatives", description: "Ready-to-post ad creatives for Capilora Professional products — square, story and banner formats.", alternates: { canonical: "/ads" } }
 
 const FORMATS: Record<string, string> = {
   square: "1080×1080 · Instagram / Facebook Post",
@@ -16,7 +16,7 @@ export default async function AdsPage() {
   const adsDir = path.join(process.cwd(), "public", "ads")
   let files: string[] = []
   try {
-    files = (await readdir(adsDir)).filter((f) => f.endsWith(".png"))
+    files = (await readdir(adsDir)).filter((f) => f.endsWith(".png") || f.endsWith(".webp"))
     await Promise.all(files.map(async (f) => stat(path.join(adsDir, f))))
   } catch {
     files = []
@@ -36,8 +36,9 @@ export default async function AdsPage() {
 
       {PRODUCTS.map((p) => {
         const set = ["square", "story", "banner"]
-          .map((f) => ({ f, file: `${p.slug}-${f}.png` }))
-          .filter(({ file }) => files.includes(file))
+          .map((f) => files.find((file) => file === `${p.slug}-${f}.png` || file === `${p.slug}-${f}.webp`))
+          .filter((f): f is string => !!f)
+          .map((file) => ({ f: file.replace(/^.*?-(square|story|banner)\.(png|webp)$/, "$1"), file }))
         if (set.length === 0) return null
         return (
           <section key={p.slug} className="mt-12">

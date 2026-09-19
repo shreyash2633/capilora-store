@@ -1,4 +1,4 @@
-export const metadata = { title: "Terms & Conditions" }
+export const metadata = { title: "Terms & Conditions", description: "Terms and conditions for purchasing from the Capilora Professional online store.", alternates: { canonical: "/terms" } }
 
 export default function TermsPage() {
   return (
