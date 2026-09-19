@@ -56,13 +56,13 @@ export default async function HomePage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-lime-50 via-lime-100 to-leaf-200" />
         <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-leaf-300/50 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-32 -left-16 h-96 w-96 rounded-full bg-apricot-100/70 blur-3xl" />
-        <Sparkles className="pointer-events-none absolute right-[8%] top-16 hidden h-8 w-8 animate-wiggle text-berry-400/70 lg:block" />
+        <div className="pointer-events-none absolute -bottom-32 -left-16 h-96 w-96 rounded-full bg-butter-100/80 blur-3xl" />
+        <Sparkles className="pointer-events-none absolute right-[8%] top-16 hidden h-8 w-8 animate-wiggle text-butter-400/70 lg:block" />
         <Leaf className="pointer-events-none absolute left-[4%] bottom-24 hidden h-10 w-10 animate-float text-leaf-400/60 lg:block" />
 
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 pb-24 pt-12 sm:px-6 lg:grid-cols-2 lg:pb-32 lg:pt-16">
           <div className="relative space-y-7">
-            <span className="badge animate-fade-up gap-1.5 bg-white/80 px-3 py-1.5 text-[11px] text-berry-600 shadow-sm ring-1 ring-berry-400/30">
+            <span className="badge animate-fade-up gap-1.5 bg-white/80 px-3 py-1.5 text-[11px] text-leaf-600 shadow-sm ring-1 ring-leaf-400/40">
               <Sparkles className="h-3 w-3" /> Professional Hair &amp; Skin Care
             </span>
             <h1 className="animate-fade-up anim-d1 font-display text-5xl font-semibold leading-[1.06] tracking-tight text-forest-950 sm:text-6xl">
@@ -77,7 +77,7 @@ export default async function HomePage() {
               Acid — into a clean, conscious range made for visible change.
             </p>
             <div className="animate-fade-up anim-d3 flex flex-wrap items-center gap-3">
-              <Link href="/products" className="btn-apricot">
+              <Link href="/products" className="btn-leaf">
                 Shop the Range <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/about" className="btn-outline">
@@ -194,10 +194,10 @@ export default async function HomePage() {
                 className={`card animate-fade-up p-5 transition duration-300 hover:-translate-y-1 hover:bg-butter-100 hover:shadow-soft anim-d${(i % 6) + 1}`}
               >
                 <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-apricot-600" />
+                  <Sparkles className="h-4 w-4 text-leaf-600" />
                   <div className="font-bold text-forest-950">{a.name}</div>
                 </div>
-                <div className="mt-1 text-[11px] font-bold uppercase tracking-wide text-berry-600">{a.where}</div>
+                <div className="mt-1 text-[11px] font-bold uppercase tracking-wide text-leaf-600">{a.where}</div>
                 <p className="mt-2 text-sm leading-relaxed text-forest-900/60">{a.what}</p>
               </div>
             ))}
@@ -217,7 +217,7 @@ export default async function HomePage() {
           <div className="flex w-max gap-5 review-track px-4">
             {[...REVIEWS, ...REVIEWS].map((t, i) => (
               <figure key={i} className="card flex w-80 shrink-0 flex-col p-5">
-                <div className="mb-2.5 flex gap-0.5 text-berry-500">
+                <div className="mb-2.5 flex gap-0.5 text-butter-400">
                   {Array.from({ length: 5 }).map((_, j) => (
                     <Star key={j} className="h-4 w-4 fill-current" />
                   ))}
@@ -225,7 +225,7 @@ export default async function HomePage() {
                 <blockquote className="flex-1 text-sm leading-relaxed text-forest-900/80">“{t.quote}”</blockquote>
                 <figcaption className="mt-4 text-sm">
                   <span className="font-bold text-forest-950">{t.name}</span>
-                  <span className="ml-2 text-xs font-semibold text-berry-600">{t.role}</span>
+                  <span className="ml-2 text-xs font-semibold text-leaf-600">{t.role}</span>
                 </figcaption>
               </figure>
             ))}
@@ -246,7 +246,7 @@ export default async function HomePage() {
             {settings.contactPhone}.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <Link href="/products" className="btn-apricot">
+            <Link href="/products" className="btn-leaf">
               Shop Now <ArrowRight className="h-4 w-4" />
             </Link>
             <a

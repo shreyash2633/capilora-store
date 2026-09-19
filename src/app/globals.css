@@ -21,21 +21,10 @@
   --color-lime-50: #f7fce4;
   --color-cream: #fbfdf5;
 
-  /* Vibrant D2C accents */
-  --color-apricot-100: #ffeedd;
-  --color-apricot-300: #ffc79a;
-  --color-apricot-400: #ffb27a;
-  --color-apricot-500: #ff9349;
-  --color-apricot-600: #f07a2e;
-  --color-berry-100: #ffe4ec;
-  --color-berry-400: #f4739b;
-  --color-berry-500: #e94f7c;
-  --color-berry-600: #d13a67;
+  /* Warm editorial accents */
   --color-butter-100: #fff6d9;
   --color-butter-300: #ffe58f;
   --color-butter-400: #ffd75e;
-  --color-pool-100: #e3f4ff;
-  --color-pool-300: #a8dbff;
 }
 
 html {
@@ -108,9 +97,9 @@ body {
   .btn-outline {
     @apply inline-flex items-center justify-center gap-2 rounded-full border border-forest-900/15 bg-white px-6 py-3 text-sm font-semibold text-forest-900 transition hover:border-leaf-500 hover:text-leaf-600 focus:outline-none active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
   }
-  .btn-apricot {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-apricot-500 px-6 py-3 text-sm font-bold text-forest-950 transition hover:bg-apricot-400 focus:outline-none active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
-    box-shadow: 0 14px 30px -10px rgb(255 147 73 / 0.65);
+  .btn-leaf {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest-800 px-6 py-3 text-sm font-semibold text-lime-50 transition hover:bg-forest-700 focus:outline-none active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+    box-shadow: 0 14px 30px -10px rgb(28 60 17 / 0.55);
   }
   .btn-sm { @apply px-4 py-2 text-xs; }
   .input {

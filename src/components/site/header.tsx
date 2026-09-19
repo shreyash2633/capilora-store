@@ -116,7 +116,7 @@ export function Header({
             >
               <ShoppingBag className="h-4.5 w-4.5" />
               {mounted && count > 0 && (
-                <span className="animate-pop absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-berry-500 px-1 text-[10px] font-bold text-white ring-2 ring-white">
+                <span className="animate-pop absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-forest-800 px-1 text-[10px] font-bold text-white ring-2 ring-white">
                   {count}
                 </span>
               )}

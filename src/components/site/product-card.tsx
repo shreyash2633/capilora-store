@@ -76,7 +76,7 @@ export function ProductCard({ p, index = 0 }: { p: ProductCardData; index?: numb
             <span className="badge bg-forest-900 text-lime-100 shadow-sm">{p.badge}</span>
           ) : null}
           {off > 0 ? (
-            <span className="badge bg-apricot-500 text-forest-950 shadow-sm">{off}% OFF</span>
+            <span className="badge bg-forest-900 text-lime-100 shadow-sm">{off}% OFF</span>
           ) : null}
         </div>
 
@@ -102,8 +102,8 @@ export function ProductCard({ p, index = 0 }: { p: ProductCardData; index?: numb
       </div>
 
       <div className="space-y-1 px-2 pb-1.5 pt-3">
-        <div className="flex items-center gap-1 text-[11px] font-bold text-berry-600">
-          <Star className="h-3 w-3 fill-berry-400 text-berry-400" /> 4.8
+        <div className="flex items-center gap-1 text-[11px] font-bold text-leaf-600">
+          <Star className="h-3 w-3 fill-butter-400 text-butter-400" /> 4.8
           <span className="font-medium text-forest-900/45">· Professional Grade</span>
         </div>
         <h3 className="line-clamp-1 font-semibold text-forest-950">{p.name}</h3>

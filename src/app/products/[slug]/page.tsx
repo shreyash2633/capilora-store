@@ -99,14 +99,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div className="flex flex-wrap items-center gap-3">
             <Price mrp={product.mrp} salePrice={product.salePrice} large />
             <Badge tone="outline">{product.size}</Badge>
-            {off > 0 && <Badge className="bg-apricot-500 text-forest-950">{off}% OFF</Badge>}
+            {off > 0 && <Badge className="bg-forest-900 text-lime-100">{off}% OFF</Badge>}
             {inStock ? (
               <Badge className="bg-lime-100 text-forest-800">In stock</Badge>
             ) : (
               <Badge tone="danger">Out of stock</Badge>
             )}
-            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-berry-600">
-              <svg viewBox="0 0 20 20" fill="currentColor" className="h-3 w-3 text-berry-400" aria-hidden>
+            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-leaf-600">
+              <svg viewBox="0 0 20 20" fill="currentColor" className="h-3 w-3 fill-butter-400 text-butter-400" aria-hidden>
                 <path d="M9.05 2.9c.3-.9 1.6-.9 1.9 0l1.3 4a1 1 0 0 0 .95.69h4.2c.98 0 1.4 1.26.6 1.84l-3.4 2.47a1 1 0 0 0-.37 1.12l1.3 4c.3.93-.76 1.7-1.55 1.13l-3.4-2.46a1 1 0 0 0-1.17 0l-3.4 2.46c-.78.57-1.84-.2-1.54-1.12l1.3-4a1 1 0 0 0-.37-1.13L2 9.43c-.78-.58-.38-1.84.6-1.84h4.2a1 1 0 0 0 .95-.7l1.3-4Z" />
               </svg>
               4.8 · Professional Grade
